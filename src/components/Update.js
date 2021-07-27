@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Checkbox, Form } from 'semantic-ui-react'
 import axios from 'axios';
+import { useHistory } from 'react-router';
+import '../App.css';
 
 const Update = () => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [checkbox, setCheckbox] = useState(false);
     const [id, setID] = useState(null);
+
+    let history = useHistory();
 
     useEffect(() => {
         setID(localStorage.getItem('ID'))
@@ -21,10 +25,17 @@ const updateAPIData = () => {
         lastName,
         checkbox
 	})
+    .then(() => {
+        history.push('/read')
+    })
+    .catch(err => {
+        console.log('Error Message: ' + err)
+    })
 }
 
     return (
         <div>
+            <h2 className='main-header'>UPDATE</h2>
             <Form className="create-form">
                 <Form.Field>
                     <label>First Name</label>
@@ -37,7 +48,7 @@ const updateAPIData = () => {
                 <Form.Field>
                     <Checkbox label='I agree to the Terms and Conditions' checked={checkbox} onChange={(e) => setCheckbox(!checkbox)}/>
                 </Form.Field>
-                <Button type='submit' onClick={updateAPIData}>Update</Button>
+                <Button className='ui inverted green button' type='submit' onClick={updateAPIData}>Update</Button>
             </Form>
         </div>
     )
