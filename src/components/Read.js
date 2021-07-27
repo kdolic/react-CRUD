@@ -22,7 +22,21 @@ const Read = () => {
         localStorage.setItem('First Name', firstName);
         localStorage.setItem('Last Name', lastName);
         localStorage.setItem('Checkbox Value', checkbox)
-}
+    }
+
+    const onDelete = (id) => {
+        axios.delete(`https://61004b34bca46600171cf83a.mockapi.io/fakeData/${id}`)
+        .then(() => {
+            getData();
+        })
+    }
+
+    const getData = () => {
+        axios.get(`https://61004b34bca46600171cf83a.mockapi.io/fakeData`)
+            .then((getData) => {
+                 setAPIData(getData.data);
+             })
+    }
 
     return (
         <div>
@@ -33,6 +47,7 @@ const Read = () => {
                         <Table.HeaderCell>Last Name</Table.HeaderCell>
                         <Table.HeaderCell>Checked</Table.HeaderCell>
                         <Table.HeaderCell>Update</Table.HeaderCell>
+                        <Table.HeaderCell>Delete</Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
 
@@ -48,6 +63,9 @@ const Read = () => {
                                     <Button onClick={() => setData(data)}>Update</Button>
                                 </Table.Cell>
                             </Link>
+                            <Table.Cell>
+                                <Button onClick={() => onDelete(data.id)}>Delete</Button>
+                            </Table.Cell>
                         </Table.Row>
                     )})}
                 </Table.Body>
