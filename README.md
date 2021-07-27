@@ -1,4 +1,8 @@
-# Getting Started with Create React App
+# CRUD Operations Practice
+
+This repository is intended as practice with implementing CRUD Operations (API Requests) using React, React Hooks, React Router, and Axios.
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
