@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Table } from 'semantic-ui-react';
+import { Button, Table } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const Read = () => {
@@ -15,6 +16,14 @@ const Read = () => {
             })
     }, [])
 
+    const setData = (data) => {
+        let { id, firstName, lastName, checkbox } = data;
+        localStorage.setItem('ID', id);
+        localStorage.setItem('First Name', firstName);
+        localStorage.setItem('Last Name', lastName);
+        localStorage.setItem('Checkbox Value', checkbox)
+}
+
     return (
         <div>
             <Table singleLine>
@@ -23,6 +32,7 @@ const Read = () => {
                         <Table.HeaderCell>First Name</Table.HeaderCell>
                         <Table.HeaderCell>Last Name</Table.HeaderCell>
                         <Table.HeaderCell>Checked</Table.HeaderCell>
+                        <Table.HeaderCell>Update</Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
 
@@ -33,6 +43,11 @@ const Read = () => {
                             <Table.Cell>{data.firstName}</Table.Cell>
                             <Table.Cell>{data.lastName}</Table.Cell>
                             <Table.Cell>{data.checkbox ? 'Yes' : 'No'}</Table.Cell>
+                            <Link to='/update'>
+                                <Table.Cell> 
+                                    <Button onClick={() => setData(data)}>Update</Button>
+                                </Table.Cell>
+                            </Link>
                         </Table.Row>
                     )})}
                 </Table.Body>
