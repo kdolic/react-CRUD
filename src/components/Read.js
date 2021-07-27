@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Table } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import '../App.css';
 
 const Read = () => {
     const [APIData, setAPIData] = useState([]);
@@ -29,6 +30,9 @@ const Read = () => {
         .then(() => {
             getData();
         })
+        .catch(err => {
+            console.log('Error Message: ' + err)
+        })
     }
 
     const getData = () => {
@@ -36,10 +40,14 @@ const Read = () => {
             .then((getData) => {
                  setAPIData(getData.data);
              })
+             .catch(err => {
+                console.log('Error Message: ' + err)
+            })
     }
 
     return (
         <div>
+            <h2 className='main-header'>READ</h2>
             <Table singleLine>
                 <Table.Header>
                     <Table.Row>
@@ -60,16 +68,17 @@ const Read = () => {
                             <Table.Cell>{data.checkbox ? 'Yes' : 'No'}</Table.Cell>
                             <Link to='/update'>
                                 <Table.Cell> 
-                                    <Button onClick={() => setData(data)}>Update</Button>
+                                    <Button className='ui inverted yellow button' onClick={() => setData(data)}>Update</Button>
                                 </Table.Cell>
                             </Link>
                             <Table.Cell>
-                                <Button onClick={() => onDelete(data.id)}>Delete</Button>
+                                <Button className='ui inverted red button' onClick={() => onDelete(data.id)}>Delete</Button>
                             </Table.Cell>
                         </Table.Row>
                     )})}
                 </Table.Body>
             </Table>
+            <Link to='/create'><Button className='ui inverted green button'>CREATE</Button></Link>
         </div>
     )
 }
